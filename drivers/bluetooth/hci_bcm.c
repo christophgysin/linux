@@ -224,10 +224,6 @@ static int bcm_gpio_set_power(struct bcm_device *dev, bool powered)
 	if (err)
 		goto err_clk_disable;
 
-	err = dev->set_device_wakeup(dev, powered);
-	if (err)
-		goto err_revert_shutdown;
-
 	if (!powered && !IS_ERR(dev->clk) && dev->clk_enabled)
 		clk_disable_unprepare(dev->clk);
 
@@ -235,7 +231,6 @@ static int bcm_gpio_set_power(struct bcm_device *dev, bool powered)
 
 	return 0;
 
-err_revert_shutdown:
 	dev->set_shutdown(dev, !powered);
 err_clk_disable:
 	if (powered && !IS_ERR(dev->clk) && !dev->clk_enabled)
