@@ -5120,8 +5120,6 @@ static void process_adv_report(struct hci_dev *hdev, u8 type, bdaddr_t *bdaddr,
 	case LE_ADV_SCAN_RSP:
 		break;
 	default:
-		bt_dev_err_ratelimited(hdev, "unknown advertising packet "
-				       "type: 0x%02x", type);
 		return;
 	}
 
